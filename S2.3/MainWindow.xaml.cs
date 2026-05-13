@@ -22,18 +22,18 @@ namespace S2._3
         }
 
         // Liste de chaînes de caractères utilisée dans les TextBox.
-        private string[] _placeholderText = ["Adresse IPv4 (déc.)", "/CIDR", "Adresse IPv4 (binaire)", "Masque standard (déc.)"];
+        private string[] _placeholderTextBox = ["Adresse IPv4 (déc.)", "/CIDR", "Adresse IPv4 (binaire)", "Masque standard (déc.)"];
 
         // Méthode TxtBox_GotFocus :
         // Efface le texte de l'élément TextBox et change la couleur du texte en noir
         // lorsque l'utilisateur clique sur le TextBox
-        // et que le texte actuel correspond au texte de la liste _placeholderText.
+        // et que le texte actuel correspond au texte de la liste _placeholderTextBox.
         private void TxtBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox txtBox = (TextBox)sender;
-            for (int i = 0; i < _placeholderText.Length; i++)
+            for (int i = 0; i < _placeholderTextBox.Length; i++)
             {
-                if (txtBox.Text == _placeholderText[i])
+                if (txtBox.Text == _placeholderTextBox[i])
                 {
                     txtBox.Text = string.Empty;
                     txtBox.Foreground = Brushes.Black;
@@ -54,7 +54,7 @@ namespace S2._3
                 case "TxtDec":
                     if (string.IsNullOrWhiteSpace(txtBox.Text))
                     {
-                        txtBox.Text = _placeholderText[0];
+                        txtBox.Text = _placeholderTextBox[0];
                         txtBox.Foreground = Brushes.Gray;
                     }
                     break;
@@ -62,7 +62,7 @@ namespace S2._3
                 case "TxtCIDR":
                     if (string.IsNullOrWhiteSpace(txtBox.Text))
                     {
-                        txtBox.Text = _placeholderText[1];
+                        txtBox.Text = _placeholderTextBox[1];
                         txtBox.Foreground = Brushes.Gray;
                     }
                     break;
@@ -70,7 +70,7 @@ namespace S2._3
                 case "TxtBin":
                     if (string.IsNullOrWhiteSpace(txtBox.Text))
                     {
-                        txtBox.Text = _placeholderText[2];
+                        txtBox.Text = _placeholderTextBox[2];
                         txtBox.Foreground = Brushes.Gray;
                     }
                     break;
@@ -78,7 +78,7 @@ namespace S2._3
                 case "TxtMask":
                     if (string.IsNullOrWhiteSpace(txtBox.Text))
                     {
-                        txtBox.Text = _placeholderText[3];
+                        txtBox.Text = _placeholderTextBox[3];
                         txtBox.Foreground = Brushes.Gray;
                     }
                     break;
@@ -88,6 +88,8 @@ namespace S2._3
             }
         }
 
+        // Méthode TxtBox_PreviewTextInput :
+        // Valide la saisie de l'utilisateur dans les TextBox en fonction de leur nom
         private void TxtBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             TextBox txtBox = (TextBox)sender;
@@ -95,7 +97,7 @@ namespace S2._3
             switch (txtBox.Name)
             {
                 case "TxtDec":
-                    if (TxtBin.Text != _placeholderText[2])
+                    if (TxtBin.Text != _placeholderTextBox[2])
                     {
                         // Bloquer la saisie si il y a déjà du texte binaire dans TxtBin
                         e.Handled = true;
@@ -109,7 +111,7 @@ namespace S2._3
                     break;
 
                 case "TxtCIDR":
-                    if (TxtMask.Text != _placeholderText[3])
+                    if (TxtMask.Text != _placeholderTextBox[3])
                     {
                         // Bloquer la saisie si il y a déjà une saisie de masque dans TxtMask
                         e.Handled = true;
@@ -128,7 +130,7 @@ namespace S2._3
                     break;
 
                 case "TxtBin":
-                    if (TxtDec.Text != _placeholderText[0])
+                    if (TxtDec.Text != _placeholderTextBox[0])
                     {
                         // Bloquer la saisie si il y a déjà du texte décimal dans TxtDec
                         e.Handled = true;
@@ -143,7 +145,7 @@ namespace S2._3
                     break;
 
                 case "TxtMask":
-                    if (TxtCIDR.Text != _placeholderText[1])
+                    if (TxtCIDR.Text != _placeholderTextBox[1])
                     {
                         // Bloquer la saisie si il y a déjà une saisie de CIDR dans TxtCIDR
                         e.Handled = true;
@@ -161,6 +163,21 @@ namespace S2._3
                     break;
             }
 
+        }
+
+        // Liste des noms utilisée dans les TextBlock.
+        private string[] _placeholderTextBlock = ["TxtClass", "TxtNetwork", "TxtFirstIP", "TxtLastIP", "TxtBroadcast", "TxtIP", "TxtMachines"];
+
+        private void BtnCalcul_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < _placeholderTextBlock.Length; i++)
+            {
+                TextBlock txtBlock = (TextBlock)this.FindName(_placeholderTextBlock[i]);
+                if (txtBlock != null)
+                {
+                    txtBlock.Text = "Erreur !";
+                }
+            }
         }
     }
 }

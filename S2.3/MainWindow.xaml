@@ -8,8 +8,8 @@
         Title="@IPV4" Height="450" Width="350">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -49,8 +49,40 @@
                  Grid.Column="1" Grid.Row="2" Background="#FFDADADA" MaxLength="15"
                  GotFocus="TxtBox_GotFocus" LostFocus="TxtBox_LostFocus" PreviewTextInput="TxtBox_PreviewTextInput"/>
 
-        <Button Content="Calculer" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Width="60" Height="20"
+        <Button x:Name="BtnCalcul" Content="Calculer" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="60" Height="20" Click="BtnCalcul_Click"
                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"/>
+        
+        <Separator Margin="10,0,10,35" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" BorderBrush="Black" BorderThickness="1"/>
+
+        <TextBlock Text="Adresse de classe : " FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"
+                   Grid.Column="0" Grid.Row="4"/>
+        <TextBlock Text="Adresse de réseau : " FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"
+                   Grid.Column="0" Grid.Row="5"/>
+        <TextBlock Text="Première adresse : " FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"
+                   Grid.Column="0" Grid.Row="6"/>
+        <TextBlock Text="Dernière adresse : " FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"
+                   Grid.Column="0" Grid.Row="7"/>
+        <TextBlock Text="Adresse de broadcast : " FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"
+                   Grid.Column="0" Grid.Row="8"/>
+        <TextBlock Text="Nombre d'IP : " FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"
+                   Grid.Column="0" Grid.Row="9"/>
+        <TextBlock Text="Nombre de machines : " FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"
+                   Grid.Column="0" Grid.Row="10"/>
+
+        <TextBlock x:Name="TxtClass" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+        <TextBlock x:Name="TxtNetwork" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+        <TextBlock x:Name="TxtFirstIP" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+        <TextBlock x:Name="TxtLastIP" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+        <TextBlock x:Name="TxtBroadcast" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+        <TextBlock x:Name="TxtIP" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+        <TextBlock x:Name="TxtMachines" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
     </Grid>
 </Window>
