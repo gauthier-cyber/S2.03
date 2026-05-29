@@ -295,22 +295,59 @@ namespace S2._3
                     byte.TryParse(morceauxMasque[2], out maskBytes[2]) &&
                     byte.TryParse(morceauxMasque[3], out maskBytes[3]))
                 {
-                    masqueValide = true;
+                    // --- AJOUT GEMINI : Validation de la continuité des bits du masque ---
+                    bool aRencontreZero = false;
+                    bool structureValide = true;
 
-                    // Compter le CIDR manuellement en inspectant chaque bit de chaque octet
-                    int compteurCidr = 0;
                     for (int i = 0; i < 4; i++)
                     {
                         byte b = maskBytes[i];
                         for (int bit = 0; bit < 8; bit++)
                         {
-                            if ((b & 128) == 128) compteurCidr++; // Si le bit le plus à gauche est à 1
-                            b = (byte)(b << 1); // Décalage vers la gauche pour analyser le bit suivant
+                            // On regarde le bit le plus à gauche (MSB)
+                            bool bitEstAUn = (b & 128) == 128;
+
+                            if (aRencontreZero && bitEstAUn)
+                            {
+                                // Si on a déjà vu un '0' et qu'un '1' réapparaît, le masque est invalide
+                                structureValide = false;
+                                break;
+                            }
+
+                            if (!bitEstAUn)
+                            {
+                                aRencontreZero = true; // On marque qu'on a croisé le premier '0'
+                            }
+
+                            b = (byte)(b << 1); // Décalage pour analyser le bit suivant
                         }
+                        if (!structureValide) break;
                     }
-                    cidr = compteurCidr;
-                    TxtCIDR.Text = "/" + cidr;
-                    TxtCIDR.Foreground = Brushes.Black;
+
+                    if (!structureValide)
+                    {
+                        // On laisse masqueValide à false pour déclencher le bloc d'erreur juste après
+                        masqueValide = false;
+                    }
+                    else
+                    {
+                        masqueValide = true;
+
+                        // Compter le CIDR manuellement en inspectant chaque bit de chaque octet
+                        int compteurCidr = 0;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            byte b = maskBytes[i];
+                            for (int bit = 0; bit < 8; bit++)
+                            {
+                                if ((b & 128) == 128) compteurCidr++; // Si le bit le plus à gauche est à 1
+                                b = (byte)(b << 1); // Décalage vers la gauche pour analyser le bit suivant
+                            }
+                        }
+                        cidr = compteurCidr;
+                        TxtCIDR.Text = "/" + cidr;
+                        TxtCIDR.Foreground = Brushes.Black;
+                    }
                 }
             }
 
