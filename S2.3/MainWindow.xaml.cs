@@ -423,6 +423,38 @@ namespace S2._3
                 TxtIP.Text = Math.Pow(2, 32 - cidr).ToString("N0");
                 TxtMachines.Text = "0";
             }
+
+            // Affichage du bouton Reset
+            BtnReset.Visibility = Visibility.Visible;
+            // Décalage du bouton Calcul vers la gauche pour faire de la place au bouton Reset
+            BtnCalcul.HorizontalAlignment = HorizontalAlignment.Left;
+            BtnCalcul.Margin = new Thickness(100, 0, 0, 0);
+        }
+
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
+        {
+            // Vider tous les TextBox
+            TxtDec.Text = _placeholderTextBox[0];
+            TxtCIDR.Text = _placeholderTextBox[1];
+            TxtBin.Text = _placeholderTextBox[2];
+            TxtMask.Text = _placeholderTextBox[3];
+            TxtDec.Foreground = Brushes.Gray;
+            TxtCIDR.Foreground = Brushes.Gray;
+            TxtBin.Foreground = Brushes.Gray;
+            TxtMask.Foreground = Brushes.Gray;
+            // Vider tous les TextBlock
+            foreach (string name in _placeholderTextBlock)
+            {
+                TextBlock txtBlock = (TextBlock)this.FindName(name);
+                if (txtBlock != null)
+                {
+                    txtBlock.Text = "";
+                }
+            }
+            // Cacher le bouton Reset et recentrer le bouton Calcul
+            BtnReset.Visibility = Visibility.Collapsed;
+            BtnCalcul.HorizontalAlignment = HorizontalAlignment.Center;
+            BtnCalcul.Margin = new Thickness(0);
         }
     }
 }
